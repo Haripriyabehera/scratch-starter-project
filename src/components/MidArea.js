@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 export default function MidArea({ onDrop, onDragOver }) {
   const [draggedItem, setDraggedItem] = useState(null);
-  
+
   const handleDrop = (event) => {
     event.preventDefault();
-    const itemHtml = event.dataTransfer.getData("text/html"); // Retrieve the HTML content
-    onDrop(event); // Call the onDrop function passed from the parent component
-    setDraggedItem(itemHtml); // Set the dragged item
+    const itemHtml = event.dataTransfer.getData("text/html");
+    onDrop(event);
+    setDraggedItem(itemHtml);
   };
 
   return (

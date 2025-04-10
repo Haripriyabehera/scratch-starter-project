@@ -1,7 +1,7 @@
 import React from "react";
 import CatSprite from "./CatSprite";
 
-export default function PreviewArea({catPosition, rotation, speechBubble }) {
+export default function PreviewArea({ catPosition, rotation, speechBubble }) {
   return (
     <div
       style={{
@@ -26,7 +26,7 @@ export default function PreviewArea({catPosition, rotation, speechBubble }) {
           pointerEvents: "none",
         }}
       >
-              {speechBubble && (
+        {speechBubble && (
           <div
             className={`absolute -top-10 left-1/2 transform -translate-x-1/2 bg-white border border-black rounded-xl px-3 py-1 shadow-md text-sm text-black ${
               speechBubble.type === "think" ? "italic" : ""
@@ -35,12 +35,9 @@ export default function PreviewArea({catPosition, rotation, speechBubble }) {
             {speechBubble.text}
           </div>
         )}
-  
+
         <CatSprite />
-       
       </div>
-      
     </div>
   );
 }
-
