@@ -9,13 +9,13 @@ export default function Sidebar({
   goToXY,
   handleSay,
   handleThink,
+  onPlay,
 }) {
   const [X, setX] = useState(0);
   const [y, setY] = useState(0);
 
   const handleDragStart = (event, itemHtml) => {
     // Store the item's HTML content in the drag data
-    console.log("itemHtml in sidebar : ", itemHtml);
     event.dataTransfer.setData("text/html", itemHtml); // Store HTML structure of the element
     onDragStart(event, itemHtml); // Optionally pass the item to a parent component (optional)
   };
@@ -51,9 +51,24 @@ export default function Sidebar({
       <div className="flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-1 my-2 text-sm cursor-pointer">
         {"When this sprite clicked"}
       </div>
+
+      {/* Motion */}
+
       <div className="font-bold"> {"Motion"} </div>
+
+      {/* Move 10 steps */}
       <div
         className="flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
+        draggable
+        onDragStart={(e) =>
+          handleDragStart(
+            e,
+            createItemHtml(
+              "Move 10 steps",
+              "<Icon name='arrow-right' size={15} className='text-white mx-2' />"
+            )
+          )
+        }
         onClick={moveCat} // Call moveCat when clicked
       >
         {"Move 10 steps"}
@@ -61,6 +76,16 @@ export default function Sidebar({
       <div
         className="flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
         onClick={turnCounterClockwise} // Call turnClockwise when clicked
+        draggable
+        onDragStart={(e) =>
+          handleDragStart(
+            e,
+            createItemHtml(
+              "Turn counterclockwise",
+              "<Icon name='undo' size={15} className='text-white mx-2' />"
+            )
+          )
+        }
       >
         {"Turn "}
         <Icon name="undo" size={15} className="text-white mx-2" />
@@ -69,11 +94,22 @@ export default function Sidebar({
       <div
         className="flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
         onClick={turnClockwise}
+        draggable
+        onDragStart={(e) =>
+          handleDragStart(
+            e,
+            createItemHtml(
+              "Turn clockwise",
+              "<Icon name='redo' size={15} className='text-white mx-2' />"
+            )
+          )
+        }
       >
         {"Turn "}
         <Icon name="redo" size={15} className="text-white mx-2" />
         {"15 degrees"}
       </div>
+
       <div
         className="flex items-center bg-blue-500 text-white px-2 py-2 my-2 text-sm rounded-xl shadow-md gap-2 w-fit cursor-pointer"
         onClick={() => goToXY(X, y)}
@@ -94,6 +130,23 @@ export default function Sidebar({
           onClick={(e) => e.stopPropagation()}
           className="w-8 px-1 text-black text-center bg-white rounded-xl shadow-inner outline-none"
         />
+      </div>
+
+      <div
+        className="flex flex-row flex-wrap bg-blue-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
+        draggable
+        onDragStart={(e) =>
+          handleDragStart(
+            e,
+            createItemHtml(
+              `<div data-type="repeat" data-count="10">repeat 10 times</div>`,
+              `<Icon name='repeat' size={15} className='text-white mx-2' />`
+            )
+          )
+        }
+      >
+        {" Repeat 10 times"}
+        <Icon name="repeat" size={15} className="text-white mx-2" />
       </div>
 
       <div className="font-bold mt-4"> {"Looks"} </div>
@@ -168,6 +221,12 @@ export default function Sidebar({
           readOnly
           className="w-20 px-2 py-1 text-black bg-white rounded-xl text-center"
         />
+      </div>
+      <div
+        className="flex flex-row flex-wrap bg-blue-500 text-white px-10 py-4 my-2 text-sm cursor-pointer rounded-xl"
+        onClick={onPlay}
+      >
+        ▶ Play
       </div>
     </div>
   );
